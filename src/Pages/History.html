@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History</title>
+
+    <link rel="stylesheet" href="../Css/Style.css" />
+    <link rel="stylesheet" href="../Css/Dashboard.css" />
+</head>
+<body>
+    <div class="page-bg-animation"></div>
+
+    <div class="dashboard-container">
+        <header class="topbar glass-card">
+            <div>
+                <h1>Your History</h1>
+                <p id="historyWelcomeText">Welcome</p>
+            </div>
+
+            <div class="topbar-actions">
+                <button id="historyThemeToggleBtn" class="outline-btn">Toggle Theme</button>
+                <button id="backDashboardBtn" class="outline-btn">Back To Dashboard</button>
+                <button id="logoutBtn" class="danger-btn">Logout</button>
+            </div>
+        </header>
+
+        <section class="glass-card history-page-card">
+            <div class="history-controls">
+                <h2>Saved Operations</h2>
+                <button id="clearHistoryBtn" class="danger-btn">Clear History</button>
+            </div>
+
+            <div id="historyList" class="history-list">
+                <p class="empty-history-text">No history found.</p>
+            </div>
+        </section>
+    </div>
+
+    <script type="module" src="../Js/Dashboard.js"></script>
+</body>
+</html>

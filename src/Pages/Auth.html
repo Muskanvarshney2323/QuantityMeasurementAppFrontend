@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Signup</title>
+
+    <link rel="stylesheet" href="../Css/Style.css" />
+    <link rel="stylesheet" href="../Css/Auth.css" />
+</head>
+<body>
+    <div class="page-bg-animation"></div>
+
+    <div class="auth-container">
+        <div class="auth-card glass-card">
+            <div class="auth-top">
+                <h1>Quantity Measurement</h1>
+                <p>Login to view your saved history</p>
+            </div>
+
+            <div class="auth-tab-row">
+                <button id="loginTabBtn" class="auth-tab active">Login</button>
+                <button id="signupTabBtn" class="auth-tab">Sign Up</button>
+            </div>
+
+            <div id="authMessage" class="message-box"></div>
+
+            <form id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" />
+                    <small id="loginEmailError" class="error-text"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="loginPassword" placeholder="Enter your password" />
+                        <button type="button" class="toggle-password-btn" data-target="loginPassword">Show</button>
+                    </div>
+                    <small id="loginPasswordError" class="error-text"></small>
+                </div>
+
+                <button type="submit" class="primary-btn auth-submit-btn">Login</button>
+            </form>
+
+            <form id="signupForm" class="auth-form">
+                <div class="input-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" />
+                    <small id="signupNameError" class="error-text"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" />
+                    <small id="signupEmailError" class="error-text"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="signupPassword" placeholder="Create password" />
+                        <button type="button" class="toggle-password-btn" data-target="signupPassword">Show</button>
+                    </div>
+                    <small id="signupPasswordError" class="error-text"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <div class="password-field">
+                        <input type="password" id="signupConfirmPassword" placeholder="Confirm password" />
+                        <button type="button" class="toggle-password-btn" data-target="signupConfirmPassword">Show</button>
+                    </div>
+                    <small id="signupConfirmPasswordError" class="error-text"></small>
+                </div>
+
+                <button type="submit" class="primary-btn auth-submit-btn">Sign Up</button>
+            </form>
+
+            <div class="auth-footer">
+                <button id="backToDashboardBtn" class="outline-btn">Back To Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../Js/Auth.js"></script>
+</body>
+</html>
