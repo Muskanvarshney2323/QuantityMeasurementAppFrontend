@@ -3,40 +3,48 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>History</title>
-
-    <link rel="stylesheet" href="../Css/Style.css" />
-    <link rel="stylesheet" href="../Css/Dashboard.css" />
+    <title>QMeasure | History</title>
+    <link rel="stylesheet" href="../Css/History.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 </head>
 <body>
-    <div class="page-bg-animation"></div>
-
-    <div class="dashboard-container">
-        <header class="topbar glass-card">
+    <div class="history-page">
+        <header class="history-header">
             <div>
-                <h1>Your History</h1>
-                <p id="historyWelcomeText">Welcome</p>
+                <h1 id="historyTitle">History</h1>
+                <p id="historySubtitle">Your saved results appear here.</p>
             </div>
 
-            <div class="topbar-actions">
-                <button id="historyThemeToggleBtn" class="outline-btn">Toggle Theme</button>
-                <button id="backDashboardBtn" class="outline-btn">Back To Dashboard</button>
-                <button id="logoutBtn" class="danger-btn">Logout</button>
+            <div class="history-actions">
+                <button id="themeToggleBtn" class="header-btn secondary-btn" type="button">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Dark</span>
+                </button>
+
+                <button id="backBtn" class="header-btn secondary-btn" type="button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back</span>
+                </button>
+
+                <button id="clearHistoryBtn" class="header-btn danger-btn" type="button">
+                    <i class="fas fa-trash"></i>
+                    <span>Clear History</span>
+                </button>
             </div>
         </header>
 
-        <section class="glass-card history-page-card">
-            <div class="history-controls">
-                <h2>Saved Operations</h2>
-                <button id="clearHistoryBtn" class="danger-btn">Clear History</button>
-            </div>
-
-            <div id="historyList" class="history-list">
-                <p class="empty-history-text">No history found.</p>
-            </div>
-        </section>
+        <main id="historyList" class="history-list"></main>
     </div>
 
-    <script type="module" src="../Js/Dashboard.js"></script>
+    <script src="../Js/History.js"></script>
 </body>
 </html>

@@ -1,183 +1,220 @@
-import { signupUser, loginUser } from "./Api.js";
-import { validateLogin, validateSignup } from "./Validators.js";
-import {
-    saveCurrentUser,
-    mergeGuestHistoryToUser,
-    getTheme,
-    clearCurrentUser
-} from "./Storage.js";
+document.addEventListener("DOMContentLoaded", () => {
+    const loginTabBtn = document.getElementById("loginTabBtn");
+    const signupTabBtn = document.getElementById("signupTabBtn");
 
-const loginTabBtn = document.getElementById("loginTabBtn");
-const signupTabBtn = document.getElementById("signupTabBtn");
-const loginForm = document.getElementById("loginForm");
-const signupForm = document.getElementById("signupForm");
-const authMessage = document.getElementById("authMessage");
-const backToDashboardBtn = document.getElementById("backToDashboardBtn");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
 
-function applyTheme() {
-    const savedTheme = getTheme();
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPassword = document.getElementById("loginPassword");
 
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-theme");
-    } else {
-        document.body.classList.remove("dark-theme");
+    const signupName = document.getElementById("signupName");
+    const signupEmail = document.getElementById("signupEmail");
+    const signupPassword = document.getElementById("signupPassword");
+    const signupConfirmPassword = document.getElementById("signupConfirmPassword");
+
+    const authMessage = document.getElementById("authMessage");
+    const backBtn = document.getElementById("backBtn");
+
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.getElementById("themeText");
+
+    const THEME_KEY = "qm_theme";
+    const USERS_KEY = "qm_users";
+
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem(THEME_KEY) || "light";
+        applyTheme(savedTheme);
     }
-}
 
-function clearErrors() {
-    const errorElements = document.querySelectorAll(".error-text");
-    errorElements.forEach((element) => {
-        element.textContent = "";
-    });
-}
+    function bindThemeToggle() {
+        if (!themeToggleBtn) return;
 
-function showMessage(message, type) {
-    authMessage.textContent = message;
-    authMessage.className = `message-box ${type}`;
-}
+        themeToggleBtn.addEventListener("click", () => {
+            const newTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+            localStorage.setItem(THEME_KEY, newTheme);
+            applyTheme(newTheme);
+        });
+    }
 
-function hideMessage() {
-    authMessage.textContent = "";
-    authMessage.className = "message-box";
-}
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            document.body.classList.add("dark-theme");
+            if (themeIcon) themeIcon.textContent = "☀️";
+            if (themeText) themeText.textContent = "Light";
+        } else {
+            document.body.classList.remove("dark-theme");
+            if (themeIcon) themeIcon.textContent = "🌙";
+            if (themeText) themeText.textContent = "Dark";
+        }
+    }
 
-function switchTab(tabName) {
-    clearErrors();
-    hideMessage();
-
-    if (tabName === "login") {
+    function showLoginForm() {
         loginTabBtn.classList.add("active");
         signupTabBtn.classList.remove("active");
-        loginForm.classList.add("active");
-        signupForm.classList.remove("active");
-    } else {
+
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+
+        clearMessage();
+    }
+
+    function showSignupForm() {
         signupTabBtn.classList.add("active");
         loginTabBtn.classList.remove("active");
-        signupForm.classList.add("active");
-        loginForm.classList.remove("active");
+
+        signupForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+
+        clearMessage();
     }
-}
 
-function setError(id, message) {
-    const element = document.getElementById(id);
-    if (element) {
-        element.textContent = message;
+    function getUsers() {
+        return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
     }
-}
 
-function setupPasswordToggle() {
-    const buttons = document.querySelectorAll(".toggle-password-btn");
+    function saveUsers(users) {
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    }
 
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const inputId = button.dataset.target;
-            const input = document.getElementById(inputId);
+    function setMessage(text, type) {
+        authMessage.textContent = text;
+        authMessage.className = `auth-message ${type}`;
+    }
 
-            if (input.type === "password") {
-                input.type = "text";
-                button.textContent = "Hide";
-            } else {
-                input.type = "password";
-                button.textContent = "Show";
-            }
-        });
-    });
-}
+    function clearMessage() {
+        authMessage.textContent = "";
+        authMessage.className = "auth-message";
+    }
 
-function setupLogin() {
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        clearErrors();
-        hideMessage();
+    function generateToken() {
+        return `token_${Date.now()}`;
+    }
 
-        const formData = {
-            email: document.getElementById("loginEmail").value.trim(),
-            password: document.getElementById("loginPassword").value.trim()
-        };
+    function mergeGuestHistoryIntoUser(email) {
+        const guestKey = "qm_history_guest";
+        const userKey = `qm_history_${email}`;
 
-        const errors = validateLogin(formData);
+        const guestHistory = JSON.parse(localStorage.getItem(guestKey)) || [];
+        const userHistory = JSON.parse(localStorage.getItem(userKey)) || [];
 
-        if (errors.email) setError("loginEmailError", errors.email);
-        if (errors.password) setError("loginPasswordError", errors.password);
-
-        if (Object.keys(errors).length > 0) {
-            return;
+        if (guestHistory.length > 0) {
+            const mergedHistory = [...guestHistory, ...userHistory];
+            localStorage.setItem(userKey, JSON.stringify(mergedHistory));
+            localStorage.removeItem(guestKey);
         }
+    }
 
-        const response = await loginUser(formData);
+    function redirectAfterAuth() {
+        const redirectTarget = localStorage.getItem("redirectAfterAuth") || "dashboard";
+        localStorage.removeItem("redirectAfterAuth");
 
-        if (!response.success) {
-            showMessage(response.message, "error");
-            return;
-        }
-
-        saveCurrentUser(response.data);
-        mergeGuestHistoryToUser(response.data.email);
-
-        showMessage("Login successful. Redirecting to history...", "success");
-
-        setTimeout(() => {
+        if (redirectTarget === "history") {
             window.location.href = "./History.html";
-        }, 900);
-    });
-}
-
-function setupSignup() {
-    signupForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        clearErrors();
-        hideMessage();
-
-        const formData = {
-            name: document.getElementById("signupName").value.trim(),
-            email: document.getElementById("signupEmail").value.trim(),
-            password: document.getElementById("signupPassword").value.trim(),
-            confirmPassword: document.getElementById("signupConfirmPassword").value.trim()
-        };
-
-        const errors = validateSignup(formData);
-
-        if (errors.name) setError("signupNameError", errors.name);
-        if (errors.email) setError("signupEmailError", errors.email);
-        if (errors.password) setError("signupPasswordError", errors.password);
-        if (errors.confirmPassword) {
-            setError("signupConfirmPasswordError", errors.confirmPassword);
+        } else {
+            window.location.href = "../../index.html";
         }
+    }
 
-        if (Object.keys(errors).length > 0) {
-            return;
-        }
+    if (loginTabBtn) {
+        loginTabBtn.addEventListener("click", showLoginForm);
+    }
 
-        const response = await signupUser(formData);
+    if (signupTabBtn) {
+        signupTabBtn.addEventListener("click", showSignupForm);
+    }
 
-        if (!response.success) {
-            showMessage(response.message, "error");
-            return;
-        }
+    if (loginForm) {
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault();
 
-        showMessage(response.message || "Signup successful. Please login now.", "success");
-        signupForm.reset();
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value.trim();
 
-        setTimeout(() => {
-            switchTab("login");
-        }, 1000);
-    });
-}
+            if (!email || !password) {
+                setMessage("Please enter email and password.", "error");
+                return;
+            }
 
-function setupEvents() {
-    loginTabBtn.addEventListener("click", () => switchTab("login"));
-    signupTabBtn.addEventListener("click", () => switchTab("signup"));
+            const users = getUsers();
+            const existingUser = users.find((user) => user.email === email && user.password === password);
 
-    backToDashboardBtn.addEventListener("click", () => {
-        window.location.href = "../../index.html";
-    });
-}
+            if (!existingUser) {
+                setMessage("Invalid email or password.", "error");
+                return;
+            }
 
-document.addEventListener("DOMContentLoaded", () => {
-    clearCurrentUser();
-    applyTheme();
-    setupEvents();
-    setupPasswordToggle();
-    setupLogin();
-    setupSignup();
+            localStorage.setItem("token", generateToken());
+            localStorage.setItem("email", existingUser.email);
+            localStorage.setItem("fullName", existingUser.fullName);
+
+            mergeGuestHistoryIntoUser(existingUser.email);
+
+            setMessage("Login successful.", "success");
+
+            setTimeout(() => {
+                redirectAfterAuth();
+            }, 700);
+        });
+    }
+
+    if (signupForm) {
+        signupForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const fullName = signupName.value.trim();
+            const email = signupEmail.value.trim();
+            const password = signupPassword.value.trim();
+            const confirmPassword = signupConfirmPassword.value.trim();
+
+            if (!fullName || !email || !password || !confirmPassword) {
+                setMessage("Please fill all fields.", "error");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                setMessage("Passwords do not match.", "error");
+                return;
+            }
+
+            const users = getUsers();
+            const userExists = users.some((user) => user.email === email);
+
+            if (userExists) {
+                setMessage("User already exists. Please login.", "error");
+                return;
+            }
+
+            users.push({
+                fullName,
+                email,
+                password
+            });
+
+            saveUsers(users);
+
+            localStorage.setItem("token", generateToken());
+            localStorage.setItem("email", email);
+            localStorage.setItem("fullName", fullName);
+
+            mergeGuestHistoryIntoUser(email);
+
+            setMessage("Signup successful.", "success");
+
+            setTimeout(() => {
+                redirectAfterAuth();
+            }, 700);
+        });
+    }
+
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = "../../index.html";
+        });
+    }
+
+    initializeTheme();
+    bindThemeToggle();
+    showLoginForm();
 });

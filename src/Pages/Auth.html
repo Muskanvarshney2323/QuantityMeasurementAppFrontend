@@ -3,87 +3,84 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login / Signup</title>
-
-    <link rel="stylesheet" href="../Css/Style.css" />
+    <title>QMeasure | Login / Signup</title>
     <link rel="stylesheet" href="../Css/Auth.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 </head>
 <body>
-    <div class="page-bg-animation"></div>
+    <div class="auth-page">
+        <div class="auth-top-bar">
+            <button id="backBtn" class="top-btn secondary-btn" type="button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
 
-    <div class="auth-container">
-        <div class="auth-card glass-card">
-            <div class="auth-top">
-                <h1>Quantity Measurement</h1>
-                <p>Login to view your saved history</p>
+            <button id="themeToggleBtn" class="top-btn secondary-btn" type="button">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">Dark</span>
+            </button>
+        </div>
+
+        <div class="auth-card">
+            <h1>Welcome to QMeasure</h1>
+            <p class="auth-subtitle">Login or create an account to view your saved history.</p>
+
+            <div class="auth-tabs">
+                <button id="loginTabBtn" class="auth-tab active" type="button">Login</button>
+                <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
             </div>
 
-            <div class="auth-tab-row">
-                <button id="loginTabBtn" class="auth-tab active">Login</button>
-                <button id="signupTabBtn" class="auth-tab">Sign Up</button>
-            </div>
+            <div id="authMessage" class="auth-message"></div>
 
-            <div id="authMessage" class="message-box"></div>
-
-            <form id="loginForm" class="auth-form active">
-                <div class="input-group">
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
                     <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email" />
-                    <small id="loginEmailError" class="error-text"></small>
+                    <input id="loginEmail" type="email" placeholder="Enter email" />
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <div class="password-field">
-                        <input type="password" id="loginPassword" placeholder="Enter your password" />
-                        <button type="button" class="toggle-password-btn" data-target="loginPassword">Show</button>
-                    </div>
-                    <small id="loginPasswordError" class="error-text"></small>
+                    <input id="loginPassword" type="password" placeholder="Enter password" />
                 </div>
 
-                <button type="submit" class="primary-btn auth-submit-btn">Login</button>
+                <button class="submit-btn" type="submit">Login</button>
             </form>
 
-            <form id="signupForm" class="auth-form">
-                <div class="input-group">
+            <form id="signupForm" class="auth-form hidden">
+                <div class="form-group">
                     <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" placeholder="Enter your full name" />
-                    <small id="signupNameError" class="error-text"></small>
+                    <input id="signupName" type="text" placeholder="Enter full name" />
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" placeholder="Enter your email" />
-                    <small id="signupEmailError" class="error-text"></small>
+                    <input id="signupEmail" type="email" placeholder="Enter email" />
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <label for="signupPassword">Password</label>
-                    <div class="password-field">
-                        <input type="password" id="signupPassword" placeholder="Create password" />
-                        <button type="button" class="toggle-password-btn" data-target="signupPassword">Show</button>
-                    </div>
-                    <small id="signupPasswordError" class="error-text"></small>
+                    <input id="signupPassword" type="password" placeholder="Create password" />
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <label for="signupConfirmPassword">Confirm Password</label>
-                    <div class="password-field">
-                        <input type="password" id="signupConfirmPassword" placeholder="Confirm password" />
-                        <button type="button" class="toggle-password-btn" data-target="signupConfirmPassword">Show</button>
-                    </div>
-                    <small id="signupConfirmPasswordError" class="error-text"></small>
+                    <input id="signupConfirmPassword" type="password" placeholder="Confirm password" />
                 </div>
 
-                <button type="submit" class="primary-btn auth-submit-btn">Sign Up</button>
+                <button class="submit-btn" type="submit">Create Account</button>
             </form>
-
-            <div class="auth-footer">
-                <button id="backToDashboardBtn" class="outline-btn">Back To Dashboard</button>
-            </div>
         </div>
     </div>
 
-    <script type="module" src="../Js/Auth.js"></script>
+    <script src="../Js/Auth.js"></script>
 </body>
 </html>
