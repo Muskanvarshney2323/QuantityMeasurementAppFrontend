@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #f4f7ff;
+    --bg-secondary: #e8eeff;
+    --card-bg: rgba(255, 255, 255, 0.72);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border-color: rgba(148, 163, 184, 0.25);
+    --accent: #4f6df5;
+    --accent-hover: #3f5ce0;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --shadow: 0 15px 40px rgba(79, 109, 245, 0.15);
+    --input-bg: rgba(255, 255, 255, 0.85);
+    --result-bg: rgba(79, 109, 245, 0.08);
+}
+
+body.dark-theme {
+    --bg-primary: #0f172a;
+    --bg-secondary: #111c34;
+    --card-bg: rgba(15, 23, 42, 0.78);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --border-color: rgba(148, 163, 184, 0.18);
+    --accent: #5b7cff;
+    --accent-hover: #4567f1;
+    --danger: #f87171;
+    --success: #4ade80;
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    --input-bg: rgba(30, 41, 59, 0.95);
+    --result-bg: rgba(91, 124, 255, 0.14);
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-bg-animation {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(79, 109, 245, 0.16), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(34, 197, 94, 0.10), transparent 22%),
+        radial-gradient(circle at 60% 80%, rgba(168, 85, 247, 0.12), transparent 25%);
+    animation: bgMove 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes bgMove {
+    from {
+        transform: scale(1) translateY(0);
+    }
+    to {
+        transform: scale(1.06) translateY(-8px);
+    }
+}
+
+h1,
+h2,
+h3,
+label,
+button,
+input,
+select,
+p,
+small {
+    position: relative;
+    z-index: 1;
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+}
+
+input,
+select {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-primary);
+    padding: 12px 14px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.15);
+}
+
+.glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
+}
+
+.primary-btn,
+.outline-btn,
+.danger-btn,
+.quick-btn,
+.small-btn {
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.primary-btn {
+    background: var(--accent);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.outline-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.outline-btn:hover {
+    background: rgba(79, 109, 245, 0.08);
+}
+
+.danger-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.danger-btn:hover {
+    opacity: 0.92;
+}
+
+.small-btn {
+    padding: 10px 14px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.error-text {
+    min-height: 18px;
+    font-size: 13px;
+    color: var(--danger);
+}
+
+.message-box {
+    display: none;
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.message-box.success {
+    display: block;
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.message-box.error {
+    display: block;
+    background: rgba(239, 68, 68, 0.10);
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QMeasure | Login / Signup</title>
+    <link rel="stylesheet" href="../Css/Auth.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-top-bar">
+            <button id="backBtn" class="top-btn secondary-btn" type="button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
+
+            <button id="themeToggleBtn" class="top-btn secondary-btn" type="button">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">Dark</span>
+            </button>
+        </div>
+
+        <div class="auth-card">
+            <h1>Welcome to QMeasure</h1>
+            <p class="auth-subtitle">Login or create an account to view your saved history.</p>
+
+            <div class="auth-tabs">
+                <button id="loginTabBtn" class="auth-tab active" type="button">Login</button>
+                <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <div id="authMessage" class="auth-message"></div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" placeholder="Enter email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" placeholder="Enter password" />
+                </div>
+
+                <button class="submit-btn" type="submit">Login</button>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input id="signupName" type="text" placeholder="Enter full name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" type="email" placeholder="Enter email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" type="password" placeholder="Create password" />
+                </div>
+
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input id="signupConfirmPassword" type="password" placeholder="Confirm password" />
+                </div>
+
+                <button class="submit-btn" type="submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../Js/Auth.js"></script>
+</body>
+</html>

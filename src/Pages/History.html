@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QMeasure | History</title>
+    <link rel="stylesheet" href="../Css/History.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+</head>
+<body>
+    <div class="history-page">
+        <header class="history-header">
+            <div>
+                <h1 id="historyTitle">History</h1>
+                <p id="historySubtitle">Your saved results appear here.</p>
+            </div>
+
+            <div class="history-actions">
+                <button id="themeToggleBtn" class="header-btn secondary-btn" type="button">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Dark</span>
+                </button>
+
+                <button id="backBtn" class="header-btn secondary-btn" type="button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back</span>
+                </button>
+
+                <button id="clearHistoryBtn" class="header-btn danger-btn" type="button">
+                    <i class="fas fa-trash"></i>
+                    <span>Clear History</span>
+                </button>
+            </div>
+        </header>
+
+        <main id="historyList" class="history-list"></main>
+    </div>
+
+    <script src="../Js/History.js"></script>
+</body>
+</html>

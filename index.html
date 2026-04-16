@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QMeasure | Quantity Measurement Dashboard</title>
+
+    <link rel="stylesheet" href="./src/Css/Dashboard.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=DM+Serif+Display&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+</head>
+<body>
+    <div class="page-bg"></div>
+
+    <header class="top-nav">
+        <div class="nav-brand">
+            <div class="nav-brand-icon">
+                <i class="fas fa-ruler-combined"></i>
+            </div>
+            <span>QMeasure</span>
+        </div>
+
+        <div class="nav-actions">
+            <button id="themeToggleBtn" class="nav-btn secondary-btn" type="button">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">Dark</span>
+            </button>
+
+            <button id="historyBtn" class="nav-btn secondary-btn" type="button">
+                <i class="fas fa-rotate-left"></i>
+                <span>History</span>
+            </button>
+
+            <button id="loginBtn" class="nav-btn primary-btn" type="button">
+                <i class="fas fa-user"></i>
+                <span>Login / Sign Up</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span>Smart Measurement Platform</span>
+                </div>
+
+                <h1>
+                    Convert, Compare
+                    <br />
+                    and Calculate
+                    <span>Measurements</span>
+                </h1>
+
+                <p>
+                    Perform quantity measurement operations quickly and easily for Length,
+                    Weight, Temperature and Volume. No login is required to use the dashboard.
+                    Login is only needed for history access and saving results.
+                </p>
+
+                <div class="hero-buttons">
+                    <button id="getStartedBtn" class="hero-btn primary-btn" type="button">
+                        Get Started <i class="fas fa-arrow-right"></i>
+                    </button>
+
+                    <button id="learnMoreBtn" class="hero-btn outline-btn" type="button">
+                        Explore Features
+                    </button>
+                </div>
+
+                <div class="hero-tags">
+                    <span class="tag"><i class="fas fa-ruler"></i> Length</span>
+                    <span class="tag"><i class="fas fa-weight-hanging"></i> Weight</span>
+                    <span class="tag"><i class="fas fa-temperature-half"></i> Temperature</span>
+                    <span class="tag"><i class="fas fa-flask"></i> Volume</span>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="hero-card-top">
+                        <h3>Quick Overview</h3>
+                        <span class="status-pill">Live</span>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-box">
+                            <strong>4</strong>
+                            <span>Types</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>5</strong>
+                            <span>Actions</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>14</strong>
+                            <span>Units</span>
+                        </div>
+                    </div>
+
+                    <div class="mini-preview">
+                        <div class="mini-row">
+                            <span>Length</span>
+                            <strong>cm → m</strong>
+                        </div>
+
+                        <div class="mini-row">
+                            <span>Weight</span>
+                            <strong>kg ↔ g</strong>
+                        </div>
+
+                        <div class="mini-row">
+                            <span>Temperature</span>
+                            <strong>°C ↔ °F</strong>
+                        </div>
+
+                        <div class="mini-row">
+                            <span>Volume</span>
+                            <strong>L ÷ mL</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboardSection" class="dashboard-section">
+            <div class="section-head">
+                <div>
+                    <h2>Measurement Dashboard</h2>
+                    <p>Select type, choose operation, enter values, and get instant results.</p>
+                </div>
+
+                <div id="userStatus" class="user-pill">Guest Mode</div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-left">
+                    <div class="glass-card">
+                        <h3 class="card-title">Select Quantity Type</h3>
+
+                        <div class="type-grid">
+                            <button class="type-card active" data-type="Length" type="button">
+                                <i class="fas fa-ruler"></i>
+                                <span>Length</span>
+                            </button>
+
+                            <button class="type-card" data-type="Weight" type="button">
+                                <i class="fas fa-weight-hanging"></i>
+                                <span>Weight</span>
+                            </button>
+
+                            <button class="type-card" data-type="Temperature" type="button">
+                                <i class="fas fa-temperature-half"></i>
+                                <span>Temperature</span>
+                            </button>
+
+                            <button class="type-card" data-type="Volume" type="button">
+                                <i class="fas fa-flask"></i>
+                                <span>Volume</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 class="card-title">Choose Action</h3>
+
+                        <div class="action-tabs">
+                            <button class="action-tab active" data-action="Compare" type="button">Compare</button>
+                            <button class="action-tab" data-action="Convert" type="button">Convert</button>
+                            <button class="action-tab" data-action="Add" type="button">Add</button>
+                            <button class="action-tab" data-action="Subtract" type="button">Subtract</button>
+                            <button class="action-tab" data-action="Divide" type="button">Divide</button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 class="card-title">Enter Values</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label id="labelOne" for="value1">Value 1</label>
+                                <input id="value1" type="number" placeholder="Enter first value" />
+                                <select id="unit1"></select>
+                            </div>
+
+                            <div id="operationIcon" class="operation-icon">=</div>
+
+                            <div class="form-group">
+                                <label id="labelTwo" for="value2">Value 2</label>
+                                <input id="value2" type="number" placeholder="Enter second value" />
+                                <select id="unit2"></select>
+                            </div>
+                        </div>
+
+                        <div id="targetRow" class="target-row hidden">
+                            <label for="targetUnit">Convert To</label>
+                            <select id="targetUnit"></select>
+                        </div>
+
+                        <div class="button-row">
+                            <button id="calculateBtn" class="run-btn" type="button">
+                                <i class="fas fa-play"></i>
+                                Run Operation
+                            </button>
+
+                            <button id="saveResultBtn" class="save-btn" type="button">
+                                <i class="fas fa-bookmark"></i>
+                                Save Result
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-right">
+                    <div class="glass-card result-card">
+                        <h3 class="card-title">Live Result</h3>
+
+                        <div id="resultStatus" class="result-status">Ready</div>
+                        <div id="resultValue" class="result-value">—</div>
+                        <p id="resultMeta" class="result-meta">
+                            Select values and run an operation
+                        </p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 class="card-title">Current Selection</h3>
+
+                        <div class="quick-list">
+                            <div class="quick-item">
+                                <span>Type</span>
+                                <strong id="selectedTypePreview">Length</strong>
+                            </div>
+
+                            <div class="quick-item">
+                                <span>Action</span>
+                                <strong id="selectedActionPreview">Compare</strong>
+                            </div>
+
+                            <div class="quick-item">
+                                <span>History Access</span>
+                                <strong>Login Required</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./src/Js/Dashboard.js"></script>
+</body>
+</html>
